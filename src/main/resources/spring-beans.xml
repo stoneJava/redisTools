@@ -13,9 +13,9 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:property-placeholder location="classpath:/redis-conf.properties"/>
-    <bean class="net.xinhong.support.RedisMonitorConfiguration"/>
+    <bean class="net.xinhong.support.RedisConfiguration"/>
 
-    <context:component-scan base-package="net.xinhong.monitor.redis">
+    <context:component-scan base-package="net.xinhong.modules.redis">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
     <!-- @AspectJ注解的支持 -->

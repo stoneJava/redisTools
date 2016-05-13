@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>redis-client</title>
+    <link rel="stylesheet" type="text/css" href="./static/jqueryEasyUI/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="./static/jqueryEasyUI/themes/icon.css">
+    <!-- <script type="text/javascript" src="./static/jqueryEasyUI/jquery.min.js"></script>-->
+    <script type="text/javascript" src="./static/jquery/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="./static/jqueryEasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="./static/jqueryEasyUI/loading.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('#tree').tree({
+                url: '/cluster/nodes',
+                method:'GET',
+                animate:true,
+                lines:true,
+                onClick: function(node){
+                    console.info(node)
+                },
+                onBeforeExpand:function(node,param){
+                    $("#tree").tree("options").url="servlet/SearchServlet?dispatch=2";
+                },
+                onLoadSuccess:function(node, data){
+                    endLoading();
+                    return true;
+                },
+                onLoadError:function(){
+                    endLoading();
+                },
+                onExpand:function (node) {
+
+                },
+                onSelect:function (node) {
+                    $(this).tree('expand',node.target);
+                }
+            });
+        });
+
+
+
+
+    </script>
+</head>
+<body onload="startLoading();">
+
+<h2 align="center">redis-client</h2>
+<div class="easyui-layout" data-options="fit:true" style="width:100%;height: 100%;">
+    <div id="west" data-options="region:'west'" title="redis-server" style="width:15%;padding: 10px;">
+
+        <ul class="easyui-tree" id="tree"></ul>
+    </div>
+
+    <div data-options="region:'center',fit:true" title="" class="easyui-tabs" style="width:85%;height:100px">
+        <div title="About" style="padding:10px">
+            <p style="font-size:14px">jQuery EasyUI framework helps you build your web pages easily.</p>
+            <ul>
+                <li>easyui is a collection of user-interface plugin based on jQuery.</li>
+                <li>easyui provides essential functionality for building modem, interactive, javascript
+                    applications.
+                </li>
+                <li>using easyui you don't need to write many javascript code, you usually defines user-interface by
+                    writing some HTML markup.
+                </li>
+                <li>complete framework for HTML5 web page.</li>
+                <li>easyui save your time and scales while developing your products.</li>
+                <li>easyui is very easy but powerful.</li>
+            </ul>
+        </div>
+        <div title="My Documents" style="padding:10px">
+            <ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
+        </div>
+        <div title="Help" data-options="iconCls:'icon-help',closable:true" style="padding:10px">
+            This is the help content.
+        </div>
+    </div>
+</div>
+</body>
+</html>
